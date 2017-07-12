@@ -1,0 +1,58 @@
+Using Forth ( Gforth )
+these definitions come from older forth standards
+( FIG, Forth-79, Forth-83 )
+__________________
+
+n == single length signed number
+u == single length unsigned number
+addr == single length unsigned number representing an address
+fn == floating point number
+nd == double length signed number
+ud == double length unsigned number
+f == boolean flag
+b == single byte number
+cccc == Forth word
+
+__________________
+GENERAL
+__________________
+bye == exit forth
+vlist == show all defined words
+
+_________________________
+UNARY OPERATIONS ( MATH )
+( n1 --> n2 )
+_________________________
+1+ == add 1
+2+ == add 2
+1- == minus 1
+2- == minus 2
+2/ == divide by 2
+ABS == absolute value
+NEGATE == multiply by -1
+
+__________________________
+BINARY OPERATIONS ( MATH )
+( n1 n2 --> n3 )
+__________________________
++ == addition
+- == subtraction
+* == multiplication
+/ == division
+MOD == modulus
+MAX == take maximum
+MIN == take minimum
+AND == bitwise and
+OR == bitwise or
+XOR == bitwise exclusive or
+
+
+
+
+
+
+
+
+
+
+
