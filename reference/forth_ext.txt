@@ -1,0 +1,19 @@
+Most common forth file extentions for source code.
+
+.fs
+.fth
+.4th
+.f
+.fr
+.4
+.frt
+.scr
+.forth
+.ft
+.fb
+.blk
+.seq
+.ans
+.for
+.fo
+
