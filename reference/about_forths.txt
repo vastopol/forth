@@ -1,0 +1,22 @@
+Differences between forths
+
+Word          Comment
+_______________________
+
+'          tick ( a single quote ). Often immediate, if so then [COMPILE]' is used when ' must exist as part of a word.
+
+WORD       may or may not leave address of input ( usually here ).
+
+<BUILDS    may exist in the form of CREATE
+
+VARIABLE   some systems let initialisation as in 199 VARIABLE X_val , others VARIABLE X_val , wherex_val could be 0 or undefined.
+
+CASE       either exists or doesnt. equivalent to nested if statements
+
+."         some versions are set up to allow immediate use from the keyboard and in definitions.
+
+_______________________
+
+specifically Gforth
+
+uses CREATE DOES> 

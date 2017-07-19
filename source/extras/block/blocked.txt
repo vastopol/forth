@@ -1,0 +1,75 @@
+\ screen by screen listing of gforth blocked.fb editor
+
+use blocked.fb  ok
+0 list Screen 0 not modified     
+ 0 \\ some comments on this simple editor                 29aug95py
+ 1 m marks current position        a goes to marked position       
+ 2 c moves cursor by n chars       t goes to line n and inserts    
+ 3 i inserts                       d deletes marked area           
+ 4 r replaces marked area          f search and mark               
+ 5 il insert a line                dl delete a line                
+ 6 qx gives a quick index          nx gives next index             
+ 7 bx gives previous index                                         
+ 8 n goes to next screen           b goes to previous screen       
+ 9 l goes to screen n              v goes to current screen        
+10 s searches until screen n       y yank deleted string           
+11                                                                 
+12 Syntax and implementation style a la PolyFORTH                  
+13 If you don't like it, write a block editor mode for Emacs!      
+14                                                                 
+15                                                                 
+ ok
+1 list Screen 1 not modified     
+ 0 \ display block                                        29aug95py
+ 1 Vocabulary editor                                               
+ 2 Variable r#                     Variable len                    
+ 3 2Variable mark                  Create rbuf  $100 allot         
+ 4 Create ibuf  $100 allot         Create fbuf  $100 allot         
+ 5 : rvson $1B emit ." [7m" ;      : rvsoff $1B emit ." [0m" ;     
+ 6 : hi r# @ c/l /mod 1+ swap 3 + swap at-xy                       
+ 7   rvson scr @ block r# @ + len @ type rvsoff 0 &17 at-xy ;      
+ 8 : l editor page list hi ;       : v  scr @ l ;                  
+ 9 : delete  ( buffer size count -- )                              
+10   over min >r  r@ - ( left over )  dup 0>                       
+11   IF  2dup swap dup  r@ +  -rot swap move  THEN  + r> blank ;   
+12 : insert  ( string length buffer size -- )                      
+13   rot over min >r  r@ -  over dup r@ +  rot move  r> move ;     
+14 : replace   ( string length buffer size -- ) rot min move ;     
+15 editor definitions                              -->             
+ ok
+2 list Screen 2 not modified     
+ 0 \ in screen command                                    29aug95py
+ 1 : m  scr @ r# @ mark 2! ;                                       
+ 2 : a  mark 2@ m r# ! l ;                                         
+ 3 : c  r# +! 1 len ! v ;                                          
+ 4 : 'rest ( -- a u )  scr @ block chars/block  r# @ /string ;     
+ 5 : 'line ( -- a u )  'rest  1- c/l 1- and 1+ ;                   
+ 6 : 'par  ( buf -- a u )  >r 0 parse dup                          
+ 7    0= IF 2drop r> count  ELSE  2dup  r> place  THEN ;           
+ 8 : t  c/l * r# ! c/l len !                                       
+ 9   0 parse tuck 'line insert IF update THEN v ;                  
+10 : i  ibuf 'par 'line insert update v ;                          
+11 : d  'line 2dup rbuf place len @  delete update v ;             
+12 : r  d i ;                                                      
+13 : y  rbuf count 'line insert update v ;                         
+14 : f  'rest  len @ c/l mod /string fbuf 'par dup len ! search    
+15   0= throw nip chars/block swap - r# ! v ;      -->             
+ ok
+3 list Screen 3 not modified     
+ 0 \ multi screen commands                                29aug95py
+ 1 : il  pad c/l 'rest insert 'rest drop c/l blank update v ;      
+ 2 : dl  'rest c/l  delete  update v ;                             
+ 3 : qx ( -- )  0 0 at-xy scr @ &60 / &60 * &60 bounds             
+ 4   DO  3 0  DO  [ FORTH ] i 1+ [ EDITOR ] j + dup 3 .r           
+ 5                space  dup scr @ = IF rvson  THEN                
+ 6                block &20 type  rvsoff  LOOP  cr  3 +LOOP ;      
+ 7 : nx  &60 scr @ +       scr !  qx ;                             
+ 8 : bx -&60 scr @ + 0 max scr !  qx ;                             
+ 9 : n  scr @ 1+ l r# off ;                                        
+10 : b  scr @ 1- l r# off ;                                        
+11 : s ( n -- / n )   >r                                           
+12   BEGIN  ['] f catch  WHILE  scr @ r@ =  IF  rdrop  EXIT  THEN  
+13          scr @ r@ u<  IF  n  ELSE  b  THEN  REPEAT  r> ;        
+14 Forth definitions                                               
+15                                                                 
+ ok

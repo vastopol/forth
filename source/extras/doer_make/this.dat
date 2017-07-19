@@ -1,0 +1,32 @@
+Doer/Make module
+
+Copied exactly from the reprinting in Advanced Forth by AJ Reynolds.
+These screens are originally from the Leo Brodie book Thinking Forth.
+Implementations for: fig, f79, f83
+
+screen #23 = forth83
+screen #24 = fig forth
+screen #25 = mvp forth79
+
+currently not compatible with gforth, planning to port module for ans compatibility
+
+presented in the form of a screen
+with upto 16 lines of 64 chars
+
+ screen # n  
+ 0                                                                 
+ 1                                                                 
+ 2                                                                 
+ 3                                                                 
+ 4                                                                 
+ 5                                                                 
+ 6                                                                 
+ 7                                                                 
+ 8                                                                 
+ 9                                                                 
+10                                                                 
+11                                                                 
+12                                                                 
+13                                                                 
+14                                                                 
+15                                                                 

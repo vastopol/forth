@@ -1,8 +1,15 @@
 \ extentions for math, logic, functionality, etc...
+\ written for gforth
+
+: 2+ ( x -- y) 
+  2 + ;
+
+: 2- ( x -- y) 
+  2 - ;
 
 : in-range? ( n x y -- t/f )
-  >R over <
-  swap R> >
+  >r over <
+  swap r> >
   and ;
 
 : binary ( -- )
@@ -29,7 +36,34 @@
 : xnor ( a b -- c ) 
   xor not ;
 
+\ bitwise or n with contents of addr, store result in addr
+: or!  ( n addr --  ) 
+  dup >r
+  c@ or
+  >r c! ;
+
+\ bitwise xor n with contents of addr, store result in addr
+: xor! ( n addr -- )
+  dup >r
+  c@ xor
+  >r c! ;
+
 \ ----------------------------
+
+\ print ascii table, uses routines from above
+: .ascii ( -- )
+  cr
+  base @
+  127 32 do
+    i emit
+    decimal  ." , dec: " i .
+    hex      ." , hex: " i .
+    octal    ." , oct: " i .
+    binary   ." , bin: " i .
+    cr
+  loop
+  base !
+;
 
 : crs ( n -- ) \ prints any negative absolute value times
   abs ?dup
