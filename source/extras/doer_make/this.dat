@@ -4,6 +4,10 @@ Copied exactly from the reprinting in Advanced Forth by AJ Reynolds.
 These screens are originally from the Leo Brodie book Thinking Forth.
 Implementations for: fig, f79, f83
 
+( probably contains more errors, must find an actual copy of the original book to correct )
+- corrected f83 module
+- f79 & fig potentially contain errors
+
 screen #23 = forth83
 screen #24 = fig forth
 screen #25 = mvp forth79
